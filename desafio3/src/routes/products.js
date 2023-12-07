@@ -1,26 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const productManager = require('../productmanager');
 
-router.get('/', async (req, res) => {
-  try {
-    const limit = req.query.limit;
-    const products = await productManager.getProducts(limit);
-    res.json({ products });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+module.exports = (productCtrl) => {
+  router.get('/', productCtrl.getProducts.bind(productCtrl));
+  router.get('/:pid', productCtrl.getProductById.bind(productCtrl));
+  router.post('/', productCtrl.addProduct.bind(productCtrl));
+  router.put('/:pid', productCtrl.updateProduct.bind(productCtrl));
+  router.delete('/:pid', productCtrl.deleteProduct.bind(productCtrl));
 
-router.get('/:pid', async (req, res) => {
-  try {
-    const productId = req.params.pid;
-    const product = await productManager.getProductById(productId);
-    res.json({ product });
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
-});
-
-
-module.exports = router;
+  return router;
+};

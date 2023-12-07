@@ -36,5 +36,5 @@ class CartController {
     }
   }
   
-  module.exports = new CartController();
+  module.exports = CartController;
   

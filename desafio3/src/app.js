@@ -15,10 +15,11 @@ const cartCtrl = new CartController(cartManager);
 
 app.use(express.json());
 
-// Rutas de Productos
-app.use('/api/products', productCtrl);
-// Rutas de Carritos
-app.use('/api/carts', cartCtrl);
+const productRouter = require('./routes/products')(productCtrl);
+app.use('/api/products', productRouter);
+
+const cartRouter = require('./routes/carts')(cartCtrl);
+app.use('/api/carts', cartRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
