@@ -1,4 +1,3 @@
-
 const fs = require('fs').promises;
 
 class ProductManager {
@@ -26,9 +25,9 @@ class ProductManager {
       const products = JSON.parse(data);
       return products;
     } catch (error) {
-      
+      throw new Error('Error loading products');
     }
-}
+  }
 }
 
 module.exports = ProductManager;
