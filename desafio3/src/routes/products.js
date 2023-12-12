@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const ProductManager = require('../productmanager');
+const ProductController = require('../Controllers/productController');
 
-module.exports = (productCtrl) => {
-  router.get('/', productCtrl.getProducts.bind(productCtrl));
-  router.get('/:pid', productCtrl.getProductById.bind(productCtrl));
-  router.post('/', productCtrl.addProduct.bind(productCtrl));
-  router.put('/:pid', productCtrl.updateProduct.bind(productCtrl));
-  router.delete('/:pid', productCtrl.deleteProduct.bind(productCtrl));
+const productRouter = express.router();
+const productmanager = new ProductManager;
+const productCtrl = new ProductController (productmanager);
 
-  return router;
-};
+
+  productRouter.get('/', productCtrl.getProducts.bind(productCtrl));
+  productRouter.get('/:pid', productCtrl.getProductById.bind(productCtrl));
+  productRouter.post('/', productCtrl.addProduct.bind(productCtrl));
+  productRouter.put('/:pid', productCtrl.updateProduct.bind(productCtrl));
+  productRouter.delete('/:pid', productCtrl.deleteProduct.bind(productCtrl));
+
+  module.export = productRouter;
+
