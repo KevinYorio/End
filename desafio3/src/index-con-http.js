@@ -5,5 +5,5 @@ const server = http.createServer((request, response) => {
 })
 
 server.listen(8080, () =>{
-    console.log(`Server running at port ${port}`)
+    console.log(`Server running at port ${8080}`)
 })
