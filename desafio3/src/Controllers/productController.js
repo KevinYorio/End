@@ -23,14 +23,19 @@ async function controllerGetProductById(req, res) {
 }
 
 async function controllerAddProduct(req, res) {
-    try {
-      const newProduct = req.body;
-      const product = await productManager.addProduct(newProduct);
-      res.json({ product });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+  try {
+    const newProduct = req.body;
+    const product = await productManager.addProduct(newProduct);
+
+
+    io.emit('productAdded', { product });
+
+    res.json({ product });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 }
+
 
 async function controllerUpdateProduct(req, res) {
     try {

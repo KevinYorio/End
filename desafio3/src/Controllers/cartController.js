@@ -1,7 +1,10 @@
+const cartCtrl = new CartController(cartManager, io);
+
 class CartController {
-    constructor(cartManager) {
-      this.cartManager = cartManager;
-    }
+  constructor(cartManager, io) {
+    this.cartManager = cartManager;
+    this.io = io;
+  }
   
     async createCart(req, res) {
       try {
