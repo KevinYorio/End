@@ -1,8 +1,9 @@
-const ProductManager  = require('../Class/productmanager');
+module.exports = (io) => {
+  const express = require('express');
+  const { ProductManager } = require('../Class/productmanager');
+  const productManager = new ProductManager(io); 
 
-const productManager = new ProductManager
-
-async function controllerGetProducts(req, res) {
+  async function controllerGetProducts(req, res) {
     try {
       const limit = req.query.limit;
       const products = await productManager.getProducts(limit);
@@ -12,7 +13,7 @@ async function controllerGetProducts(req, res) {
     }
   }
 
-async function controllerGetProductById(req, res) {
+  async function controllerGetProductById(req, res) {
     try {
       const productId = req.params.pid;
       const product = await productManager.getProductById(productId);
@@ -20,24 +21,22 @@ async function controllerGetProductById(req, res) {
     } catch (error) {
       res.status(404).json({ error: error.message });
     }
-}
-
-async function controllerAddProduct(req, res) {
-  try {
-    const newProduct = req.body;
-    const product = await productManager.addProduct(newProduct);
-
-
-    io.emit('productAdded', { product });
-
-    res.json({ product });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
   }
-}
 
+  async function controllerAddProduct(req, res) {
+    try {
+      const newProduct = req.body;
+      const product = await productManager.addProduct(newProduct);
 
-async function controllerUpdateProduct(req, res) {
+      io.emit('productAdded', { product });
+
+      res.json({ product });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async function controllerUpdateProduct(req, res) {
     try {
       const productId = req.params.pid;
       const updatedProduct = req.body;
@@ -46,9 +45,9 @@ async function controllerUpdateProduct(req, res) {
     } catch (error) {
       res.status(404).json({ error: error.message });
     }
-}
+  }
 
-async function controllerDeleteProduct(req, res) {
+  async function controllerDeleteProduct(req, res) {
     try {
       const productId = req.params.pid;
       await productManager.deleteProduct(productId);
@@ -56,6 +55,13 @@ async function controllerDeleteProduct(req, res) {
     } catch (error) {
       res.status(404).json({ error: error.message });
     }
-}
+  }
 
-module.exports =  { controllerGetProducts, controllerGetProductById , controllerAddProduct, controllerUpdateProduct, controllerDeleteProduct } 
+  return {
+    controllerGetProducts,
+    controllerGetProductById,
+    controllerAddProduct,
+    controllerUpdateProduct,
+    controllerDeleteProduct
+  };
+};

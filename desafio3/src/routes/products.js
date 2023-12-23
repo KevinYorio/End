@@ -1,18 +1,16 @@
 const express = require('express');
-const { controllerGetProducts,
-        controllerGetProductById,
-        controllerAddProduct,
-        controllerUpdateProduct, 
-        controllerDeleteProduct 
-} = require('../controllers/productsController');
-
+const productControllerInitializer = require('../Controllers/productController');  
 const productRouter = express.Router();
+const socketIO = require('socket.io');
 
-productRouter.get('/', controllerGetProducts);
-productRouter.get('/:pid', controllerGetProductById);
-productRouter.post('/', controllerAddProduct);
-productRouter.put('/:pid', controllerUpdateProduct);
-productRouter.delete('/:pid', controllerDeleteProduct);
+const io = socketIO();
 
+const productController = productControllerInitializer(io); 
+
+productRouter.get('/', productController.controllerGetProducts);
+productRouter.get('/:pid', productController.controllerGetProductById);
+productRouter.post('/', productController.controllerAddProduct);
+productRouter.put('/:pid', productController.controllerUpdateProduct);
+productRouter.delete('/:pid', productController.controllerDeleteProduct);
 
 module.exports = productRouter;
