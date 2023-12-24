@@ -1,5 +1,14 @@
-const { CartController, cartCtrl } = require('../Controllers/cartController');
-const express = require('express');
+
+const express = require('express'); 
+const { CartController } = require('../Controllers/cartController');
+const { CartManager } = require('../Class/cartmanager');
+const socketIO = require('socket.io');
+
+
+const productManager = new CartManager();
+const io = socketIO();
+
+const cartCtrl = new CartController(productManager, io);
 
 const router = express.Router();
 

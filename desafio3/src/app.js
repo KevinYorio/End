@@ -5,12 +5,12 @@ const exphbs = require('express-handlebars');
 const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/carts');
 const handlebars = require('handlebars');
-const { CartController } = require('./Controllers/cartController'); 
+const CartController = require('./Controllers/cartController');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-const productManager = require('./Class/cartmanager');  
+const productManager = require('./Class/cartmanager');
 const cartCtrl = new CartController(productManager, io);
 
 app.engine('handlebars', handlebars.engine());
@@ -19,7 +19,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
 app.use("/api/products", productRoutes(io));
-app.use("/api/carts", cartRoutes);
+app.use("/api/carts", cartRoutes);  // No necesitas pasar cartCtrl aquí
 
 app.get('/', (req, res) => {
   res.render('home');

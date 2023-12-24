@@ -13,7 +13,6 @@ class CartManager {
     this.cartsFile = path.join(__dirname, 'carts.json');
   }
 
-
   async createCart() {
     try {
       const allCarts = await this.loadCarts();
@@ -41,7 +40,6 @@ class CartManager {
       throw new Error('Error getting cart');
     }
   }
-  
 
   async addProductToCart(cartId, productId, quantity) {
     try {
@@ -57,12 +55,11 @@ class CartManager {
       } else {
         cart.products.push({ product: productId, quantity });
       }
-
+    
       await this.saveCarts(allCarts);
       return cart;
     } catch (error) {
       throw new Error('Error adding product to cart');
-      throw new CartNotFoundError('Cart not found');
     }
   }
 
@@ -94,5 +91,4 @@ class CartManager {
   }
 }
 
-module.exports = CartManager;
 module.exports = { CartManager, CartNotFoundError };

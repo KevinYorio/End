@@ -1,3 +1,4 @@
+
 const { CartController } = require('../Class/cartmanager');
 
 class CartController {
@@ -39,5 +40,4 @@ class CartController {
   }
 }
 
-const cartCtrl = new CartController(productManager, io);  
-module.exports = { CartController, cartCtrl };
+module.exports = CartController;
