@@ -1,6 +1,4 @@
 
-const { CartController } = require('../Class/cartmanager');
-
 class CartController {
   constructor(productManager, io) {  
     this.productManager = productManager;  
@@ -40,4 +38,4 @@ class CartController {
   }
 }
 
-module.exports = CartController;
+module.exports = { CartController };
