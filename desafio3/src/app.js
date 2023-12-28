@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
-const exphbs = require('express-handlebars'); 
+const handlebars = require('express-handlebars'); 
 const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/carts');
 const { CartController } = require('./Controllers/cartController');
@@ -13,12 +13,12 @@ const productManager = require('./Class/cartmanager');
 const cartCtrl = new CartController(productManager, io);
 
 
-app.engine('handlebars', exphbs()); 
+app.engine('handlebars', handlebars.engine()); 
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
-app.use("/api/products", productRoutes(io));
+app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes); 
 
 app.get('/', (req, res) => {
