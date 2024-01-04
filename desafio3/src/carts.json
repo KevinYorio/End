@@ -1,11 +1,52 @@
 [
-    {
-      "id": "1",
-      "products": []
-    },
-    {
-      "id": "2",
-      "products": []
-    }
-  ]
-  
+  {
+    "id": "101",
+    "name": "Laptop HP Pavilion",
+    "price": 899.99
+  },
+  {
+    "id": "102",
+    "name": "Smartphone Samsung Galaxy S21",
+    "price": 999.99
+  },
+  {
+    "id": "103",
+    "name": "Smart TV LG OLED C1",
+    "price": 1499.99
+  },
+  {
+    "id": "104",
+    "name": "Canon EOS R5 Camera",
+    "price": 3499.99
+  },
+  {
+    "id": "105",
+    "name": "Apple MacBook Pro 13-inch",
+    "price": 1299.99
+  },
+  {
+    "id": "106",
+    "name": "Dyson V11 Vacuum Cleaner",
+    "price": 599.99
+  },
+  {
+    "id": "107",
+    "name": "Bose QuietComfort 35 II Headphones",
+    "price": 299.99
+  },
+  {
+    "id": "108",
+    "name": "Nintendo Switch Console",
+    "price": 299.99
+  },
+  {
+    "id": "109",
+    "name": "Fitbit Charge 5 Fitness Tracker",
+    "price": 179.99
+  },
+  {
+    "id": "110",
+    "name": "KitchenAid Stand Mixer",
+    "price": 349.99
+  }
+]
