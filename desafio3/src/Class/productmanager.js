@@ -10,7 +10,7 @@ class ProductNotFoundError extends Error {
 
 class ProductManager {
   constructor(io) {
-    this.productsFile = path.join(__dirname, 'json', 'products.json');
+    this.productsFile = 'C:\\Users\\<NAME>\\Documents\\GitHub\\desafio3\\src\\products.json';
     this.io = io;
   }
 

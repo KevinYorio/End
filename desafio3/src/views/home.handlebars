@@ -5,8 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
+<script src="/desafio3/node_modules/socket.io/client-dist/socket.io.js"></script>
+
+<script>
+    const socket = io();
+    function addProduct(){
+        const productName = document.getElementById('productName').value;
+        const productPrice = document.getElementById('productPrice').value;
+        socket.emit('productAdded', {productName, productPrice});
+
+        console.log('Producto añadido')
+    }
+</script>
 <body>
     <h1>Welcome to My Store!</h1>
+    <form id="addProductForm">
+        <label for="productName"> Product Name:</label>
+        <input type="text" id="productName" name="productName" required>
+        <label for="productPrice"> Product Price:</label>
+        <input type="text" id="productPrice" name="productPrice" required>
+        <button type="button" onclick="addProduct()"> Add Product</button>
+    </form>
     
 <h2>Products:</h2>
 <ul>

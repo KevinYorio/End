@@ -10,8 +10,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-const productManager = require('./Class/cartmanager');
-const cartCtrl = new CartController(productManager, io);
+const productManager = require('./Class/productmanager');
+const productManager = new productManager();
 
 const hbs = exphbs.create({ defaultLayout: 'main', extname: '.handlebars' }); 
 app.engine('handlebars', hbs.engine); 
@@ -20,7 +20,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static('public'));
 
-// Lista de productos
+
+
+/* Lista de productos
 const products = [
   {
     "id": "101",
@@ -72,12 +74,13 @@ const products = [
     "name": "KitchenAid Stand Mixer",
     "price": 349.99
   }
-];
+]; */
 
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes); 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  const products = await productManager.getProducts();
   res.render('home', { title: 'Home', products });  // Pasar la lista de productos al renderizar la vista 'home'
 });
 
@@ -88,8 +91,13 @@ app.get('/realtimeproducts', (req, res) => {
 io.on('connection', (socket) => {
   console.log('Usuario conectado');
 
-  socket.on('productAdded', (data) => {
-    io.emit('updateProducts', data);
+  socket.on('productAdded', async (data) => {
+    const newProduct = {
+      name: data.productName,
+      price: data.productPrice
+    }
+    const products = await productManager.addProduct(newProduct);
+    io.emit('updateProducts', products);
   });
 
   socket.on('disconnect', () => {
